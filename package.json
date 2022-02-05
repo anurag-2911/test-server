@@ -9,12 +9,17 @@
   },
   "repository": {
     "type": "git"
-    
   },
   "author": "Anurag Kumar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/utility-apps/test-server/issues"
   },
-  "homepage": "https://github.com/utility-apps/test-server#readme"
+  "homepage": "https://github.com/utility-apps/test-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2",
+    "multer": "^1.4.4"
+  }
 }
