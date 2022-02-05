@@ -1,0 +1,20 @@
+{
+  "name": "test-http-server",
+  "version": "1.0.0",
+  "description": "http rest end points host",
+  "main": "index.js",
+  "scripts": {
+    "start": "node.exe .\\src\\main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git"
+    
+  },
+  "author": "Anurag Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/utility-apps/test-server/issues"
+  },
+  "homepage": "https://github.com/utility-apps/test-server#readme"
+}
