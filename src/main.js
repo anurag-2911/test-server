@@ -1,17 +1,16 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const req = require("express/lib/request");
+
 
 const app = express();
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+
 app.use(bodyParser.raw());
 
 var server = app.listen(443,() =>{
    var host = server.address().address;
    var port = server.address().port;   
-   console.log("Example app listening at http://%s:%s", host, port);
+   console.log("webserver start and listening at http://%s:%s", host, port);
 });
 
 app.post('/zenworks-content/upload/file',(request,response)=>{
@@ -40,7 +39,9 @@ function parseRequestData(data,fileName,fileType,totalChunks,currentChunk,
                 
             }
         }
-
+        console.log('file name ' + fileName + ' fileType ' + fileType +
+        ' totalchunks ' + totalChunks + ' currentChunk ' + currentChunk+
+        ' lastmodifiedTime '+lastModifiedTime +' overwrite ' + overwrite);
         
         var logStream = fs.createWriteStream(fileName, {flags: 'a'});
         logStream.write(data);
