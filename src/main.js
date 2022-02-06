@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 
+
 const app = express();
 
 app.use(bodyParser.raw({limit: '8mb'}));
@@ -37,6 +38,13 @@ app.post('/zenworks-content/upload/file',(request,response)=>{
     response.sendStatus(200);
 });
 
+// Global error handler - route handlers/middlewares which throw end up here
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    console.log('global error handler called ');
+    res.end();
+});
+
 function parseRequestData(data,fileName,fileType,totalChunks,currentChunk,
                           lastModifiedTime,overwrite,response){
         
@@ -52,7 +60,7 @@ function parseRequestData(data,fileName,fileType,totalChunks,currentChunk,
             }
             else{
                 console.log('file already present and overwrite is false so returning');
-                response.status(200).json({message: "File Already Exists!", status: 200})
+                response.status(400).json({message: "File Already Exists!", status: 400})
                 
             }
         }
