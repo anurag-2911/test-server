@@ -1,12 +1,13 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const { processFileUploadStream } = require("./processFileUploadStream");
 
 
 
 const app = express();
 
-app.use(bodyParser.raw({limit: '8mb'}));
+app.use(bodyParser.raw({limit: '8mb'})); 
 
 var server1 = app.listen(443,() =>{
    var host = server1.address().address;
@@ -32,7 +33,7 @@ app.post('/zenworks-content/upload/file',(request,response)=>{
     var lastModifiedTime = request.query.lastModifiedTime;
     var overwrite = request.query.overwrite;
 
-    parseRequestData(data,fileName,fileType,totalChunks,currentChunk,
+    processFileUploadStream(data,fileName,fileType,totalChunks,currentChunk,
                     lastModifiedTime,overwrite,response);
 
     response.sendStatus(200);
@@ -44,37 +45,5 @@ app.use((err, req, res, next) => {
     console.log('global error handler called ');
     res.end();
 });
-
-function parseRequestData(data,fileName,fileType,totalChunks,currentChunk,
-                          lastModifiedTime,overwrite,response){
-        
-        const fs = require('fs');
-        if(currentChunk==1)
-        {
-            if(fs.existsSync(fileName)){ 
-            if(overwrite==true)
-            {
-                console.log(fileName+ ' file already present and overwrite is true so deleting it ');
-                fs.unlinkSync(fileName);
-                
-            }
-            else{
-                console.log('file already present and overwrite is false so returning');
-                response.status(400).json({message: "File Already Exists!", status: 400})
-                
-            }
-        }
-        }
-        console.log('file name ' + fileName + ' fileType ' + fileType +
-        ' totalchunks ' + totalChunks + ' currentChunk ' + currentChunk+
-        ' lastmodifiedTime '+lastModifiedTime +' overwrite ' + overwrite);
-        
-        var logStream = fs.createWriteStream(fileName, {flags: 'a'});
-        logStream.write(data);
-        logStream.end();
-
-
-}
-
 
 

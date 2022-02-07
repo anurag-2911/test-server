@@ -1,7 +1,7 @@
 {
   "name": "test-http-server",
   "version": "1.0.0",
-  "description": "http rest end points host",
+  "description": "http rest end points",
   "main": "index.js",
   "scripts": {
     "start": "node.exe .\\src\\main.js",
