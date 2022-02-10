@@ -2,9 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { processFileUploadStream } = require("./processFileUploadStream");
-
-
-
+const fs = require('fs');
 const app = express();
 
 app.use(bodyParser.raw({limit: '8mb'})); 
@@ -36,13 +34,13 @@ app.post('/zenworks-content/upload/file',(request,response)=>{
     processFileUploadStream(data,fileName,fileType,totalChunks,currentChunk,
                     lastModifiedTime,overwrite,response);
 
-    response.sendStatus(200);
+    response.status(200).json({ message: "File upload completed ", status: 200 });
 });
 
 // Global error handler - route handlers/middlewares which throw end up here
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
-    console.log('global error handler called ');
+    console.log('global error handler called ' + Date.now());
     res.end();
 });
 
