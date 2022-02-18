@@ -1,8 +1,11 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const { processFileUploadStream } = require("./processFileUploadStream");
-const fs = require('fs');
+
+
+
 const app = express();
 
 app.use(bodyParser.raw({limit: '8mb'})); 
@@ -20,16 +23,19 @@ var server2 = app.listen(453,() =>{
  });
  
 
-app.post('/zenworks-content/upload/file',(request,response)=>{
-    console.log('received a request on /zenworks-content/upload/file')
+
+app.post('/zenworks-extcontent/upload',(request,response)=>{
+
+    console.log('received a request on /zenworks-extcontent/upload')
+   
     var data = request.body.toString();
    
     var fileName = request.query.fileName;
-    var fileType = request.query.fileType;
-    var totalChunks = request.query.totalChunks;
-    var currentChunk = request.query.currentChunk;
-    var lastModifiedTime = request.query.lastModifiedTime;
-    var overwrite = request.query.overwrite;
+    const fileType = request.query.fileType;
+    const totalChunks = request.query.totalChunks;
+    const currentChunk = request.query.currentChunk;
+    const lastModifiedTime = request.query.lastModifiedTime;
+    const overwrite = request.query.overwrite;
 
     processFileUploadStream(data,fileName,fileType,totalChunks,currentChunk,
                     lastModifiedTime,overwrite,response);
@@ -43,5 +49,8 @@ app.use((err, req, res, next) => {
     console.log('global error handler called ' + Date.now());
     res.end();
 });
+
+
+
 
 

@@ -14,7 +14,7 @@ function processFileUploadStream(data, fileName, fileType, totalChunks, currentC
             }
 
             
-            else {
+            else if(currentChunk==1){
                 console.log('file already present and overwrite is false so returning');
                 response.status(400).json({ message: "File Already Exists!", status: 400 });
 
