@@ -8,15 +8,14 @@ function processFileUploadStream(data, fileName, fileType, totalChunks, currentC
     {
         if (fs.existsSync(fileName)) {
            
-            if (overwrite == true) {
+            if (overwrite.toUpperCase() == "TRUE") {
                 console.log(fileName + ' file already present and overwrite is true so deleting it ');
                 fs.unlinkSync(fileName);
             }
-
-            
+                        
             else if(currentChunk==1){
                 console.log('file already present and overwrite is false so returning');
-                response.status(400).json({ message: "File Already Exists!", status: 400 });
+                response.status(412).json({ message: "File Already Exists!", status: 412 });
 
             }
         }

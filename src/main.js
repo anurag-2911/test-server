@@ -11,8 +11,8 @@ const app = express();
 app.use(bodyParser.raw({limit: '8mb'})); 
 
 try{
-    var certFilePath = path.join(__dirname,'..','certificates','cert.pem');
-    var privateKeyPath = path.join(__dirname,'..','certificates','key.pem');
+    var certFilePath = path.join(__dirname,'..','certificates','test01.cert');
+    var privateKeyPath = path.join(__dirname,'..','certificates','test01.key');
 
     var certificate = fs.readFileSync(certFilePath);
     var privateKey  = fs.readFileSync(privateKeyPath);
@@ -29,13 +29,13 @@ catch(error){
 }
 
 try{
-    var server1 = app.listen(1444,() =>{
+    var server1 = app.listen(4431,() =>{
     var host = server1.address().address;
     var port = server1.address().port;   
     console.log("http webserver started and listening at http://%s:%s", host, port);
     });
 
-    var server2 = app.listen(1445,() =>{
+    var server2 = app.listen(4432,() =>{
         var host = server2.address().address;
         var port = server2.address().port;   
         console.log("http webserver started and listening at http://%s:%s", host, port);
