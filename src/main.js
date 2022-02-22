@@ -65,7 +65,7 @@ app.post('/zenworks-extcontent/upload',(request,response)=>{
     processFileUploadStream(data,fileName,fileType,totalChunks,currentChunk,
                     lastModifiedTime,overwrite,response);
 
-    response.status(200).json({ message: "File upload completed ", status: 200 });
+    response.status(200).json({ responseMessage: "File upload completed ", httpResponseCode: 200 });
 });
 
 // Global error handler - route handlers/middlewares which throw end up here
